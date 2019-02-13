@@ -7,9 +7,11 @@
   
   <button onclick="Puck.write('LED1.set();\n');">On!</button>
   <button onclick="Puck.write('LED1.reset();\n');">Off!</button>
-  <button onClick="Puck.write('require("ble_eddystone").advertise("https://bit.ly/test");\n');">Advertise</button>
   
+  <button onClick="Puck.write('NRF.setAdvertising([
+  require("ble_eddystone").get("https://www.google.com/kubatest")]);\n');">Advertise</button>
   
+  <button onClick="Puck.disconnect();>disconnect device</button>
   
  </body>
 </html>
