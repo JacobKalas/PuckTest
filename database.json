@@ -1,0 +1,169 @@
+{
+  "Classes": {
+    "MachineLearning": {
+      "code": "code",
+      "students": {
+        "1111": {
+          "name": "jacob",
+          "surname": "kalas",
+          "present": "false"
+        },
+        "2222": {
+          "name": "chanelle",
+          "surname": "lindsay",
+          "present": "false"
+        },
+        "3333": {
+          "name": "adam",
+          "surname": "smith",
+          "present": "false"
+        },
+        "4444": {
+          "name": "aroon",
+          "surname": "lindsay",
+          "present": "false"
+        },
+        "5555": {
+          "name": "derek",
+          "surname": "salak",
+          "present": "false"
+        },
+        "6666": {
+          "name": "ernest",
+          "surname": "brown",
+          "present": "false"
+        },
+        "7777": {
+          "name": "liam",
+          "surname": "day",
+          "present": "false"
+        },
+        "8888": {
+          "name": "sebastian",
+          "surname": "mcgregor",
+          "present": "false"
+        },
+        "9191": {
+          "name": "paul",
+          "surname": "hemingway",
+          "present": "false"
+        },
+        "9999": {
+          "name": "kuba",
+          "surname": "kalas",
+          "present": "false"
+        }
+      }
+    },
+    "ArtificialIntelligence": {
+      "code": "code",
+      "students": {
+        "1212": {
+          "name": "jacob",
+          "surname": "kalas",
+          "present": "false"
+        },
+        "2323": {
+          "name": "chanelle",
+          "surname": "lindsay",
+          "present": "false"
+        },
+        "3434": {
+          "name": "adam",
+          "surname": "smith",
+          "present": "false"
+        },
+        "4545": {
+          "name": "aroon",
+          "surname": "lindsay",
+          "present": "false"
+        },
+        "5656": {
+          "name": "derek",
+          "surname": "salak",
+          "present": "false"
+        },
+        "6767": {
+          "name": "ernest",
+          "surname": "brown",
+          "present": "false"
+        },
+        "7878": {
+          "name": "liam",
+          "surname": "day",
+          "present": "false"
+        },
+        "8989": {
+          "name": "sebastian",
+          "surname": "mcgregor",
+          "present": "false"
+        },
+        "9191": {
+          "name": "paul",
+          "surname": "hemingway",
+          "present": "false"
+        },
+        "9898": {
+          "name": "kuba",
+          "surname": "kalas",
+          "present": "false"
+        }
+      }
+    },
+    "NaturalLanguageInterface": {
+      "code": "code",
+      "students": {
+        "1212": {
+          "name": "jacob",
+          "surname": "kalas",
+          "present": "false"
+        },
+        "2323": {
+          "name": "chanelle",
+          "surname": "lindsay",
+          "present": "false"
+        },
+        "3434": {
+          "name": "adam",
+          "surname": "smith",
+          "present": "false"
+        },
+        "4545": {
+          "name": "aroon",
+          "surname": "lindsay",
+          "present": "false"
+        },
+        "5656": {
+          "name": "derek",
+          "surname": "salak",
+          "present": "false"
+        },
+        "6767": {
+          "name": "ernest",
+          "surname": "brown",
+          "present": "false"
+        },
+        "7878": {
+          "name": "liam",
+          "surname": "day",
+          "present": "false"
+        },
+        "8989": {
+          "name": "sebastian",
+          "surname": "mcgregor",
+          "present": "false"
+        },
+        "9191": {
+          "name": "paul",
+          "surname": "hemingway",
+          "present": "false"
+        },
+        "9898": {
+          "name": "kuba",
+          "surname": "kalas",
+          "present": "false"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,273 @@
+<html>
+<head>
+  <title>OSA</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+<body onload="setText()">
+
+
+  <div class="title-div">
+    <h3 align="center">Welcome to OSA</h3>
+    <p id="user_para">You're currently logged in.</p>
+  </div>
+
+  <div id="login_div" class="main-div">
+    <h3>Online Student Attendance Management</h3>
+    <input type="email" placeholder="Email..." id="email_field" />
+    <input type="password" placeholder="Password..." id="password_field" />
+
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div id="user_div" class="loggedin-div">
+
+      <p>
+        <button onClick="connect()">CONNECT</button>
+      </p>
+
+
+  <div>
+    
+    <select id="mySelect" class="mySelect" onchange="getData()">
+     <option>Select Class</option>
+      <option value="ArtificialIntelligence">Artificial Intelligence</option>
+      <option value="MachineLearning">Machine Learning</option>
+      <option value="NaturalLanguageInterface">Natural Language Interface</option>
+    </select>
+
+  </div>
+  
+
+      <p>
+        <button onclick="generateCode()">GENERATE CODE</button>
+      </p>
+      <p>
+        <input id="codeTxt" placeholder="CODE"></input>
+      </p>
+    
+      <p>
+        <button onClick="sendCode()">SEND CODE</button>
+      </p>
+    
+      <p>
+        <button onClick="startRegistration()">START REGISTRATION</button>
+      </p>
+
+    <button onclick="logout()">LOGOUT</button>
+
+    </div>
+
+
+    <div class="studentTable-div" id="table-div">
+    <p>
+      <h2 class="h2" id="tblText""></h2>
+    </p>
+
+      <button class="button" onclick="refresh()">Refresh</button>
+
+      <table id="tbl_users_list" class="w3-table w3-striped w3-bordered">
+        <tr>
+          <td>ID</td>
+          <td>NAME</td>
+          <td>PRESENT</td>
+        </tr>
+      </table>
+    </div>
+
+</body>
+
+
+<script>
+
+  //creating reference to the database.
+    var database = firebase.database();
+    var x;
+    var text;
+
+  function getData() {
+
+
+      var tblUsers = document.getElementById('tbl_users_list');
+       x  = document.getElementById("mySelect").value;
+      var databaseRef = firebase.database().ref('Classes/'+x+'/students');
+
+     
+      var rowIndex = 1;
+
+      databaseRef.once('value', function(snapshot) {
+
+      resetTable();
+
+      snapshot.forEach(function(childSnapshot) {
+
+      var childKey = childSnapshot.key;
+      var childData = childSnapshot.val();
+   
+
+      var row = tblUsers.insertRow(rowIndex);
+      var cellId = row.insertCell(0);
+      var cellName = row.insertCell(1);
+      var cellPresent = row.insertCell(2);
+
+
+      cellId.appendChild(document.createTextNode(childKey));
+      cellName.appendChild(document.createTextNode(childData.name));
+      cellPresent.appendChild(document.createTextNode(childData.present));
+   
+      rowIndex = rowIndex + 1;     
+
+      });
+    });
+
+    //calling the setText method after each method call to set the name for table.
+    setText();
+
+  }
+
+  /*function setting value of table header.
+    
+  */
+  function setText(){
+
+    text = document.getElementById('mySelect').value;
+
+    if(text == "Select Class"){
+
+    document.getElementById('tblText').innerHTML = " ";
+
+    } else {
+
+    text = x.split(/(?=[A-Z])/).join(" ");
+
+    document.getElementById('tblText').innerHTML = "Students enroled for " + text;
+
+    }
+    
+  }
+  
+
+  function resetTable(){
+
+    var table = document.getElementById("tbl_users_list");
+  
+    for(var i = table.rows.length - 1; i > 0; i--)
+    {
+        table.deleteRow(i);
+    }
+  }
+
+  function refresh(){
+
+    resetTable();
+    getData();
+
+
+  }
+
+
+
+    //function connecting the puck to the device.
+    function connect(){
+
+    Puck.write("LED2.set();\n");
+
+    }
+
+    //function generating the unique code
+    //seting the input field. 
+    function generateCode(){
+
+      code = Math.random().toString(36).substr(2, 5);
+    
+      document.getElementById('codeTxt').value = code;
+
+    }
+
+
+    //function sending the command to the puck and the online database.
+    //the generated code is used for registration validation.
+    function sendCode(){
+
+      var codeAuth = document.getElementById('codeTxt').value;
+
+
+
+      /*
+        checking whetehr code field is not null
+        if is not null, we send it to the puck and the database.
+        if null or invalid we dispaly a message.
+      */
+
+      if(codeAuth == null && codeAuth.length =< 5){
+
+        //writting to puck
+        Puck.write("setTimeout('NRF.setAdvertising([beacon.get(`RegFinished`)]);', 600000)\nNRF.setAdvertising([beacon.get('"+codeAuth+"')]);\n");
+
+
+        //updating the ComputerSecurity table database value where name is 'CODE'
+        firebase.database().ref('Classes/'+x+'/code').set(codeAuth);
+
+
+      } else {
+
+        window.alert("Please generate code using the 'GENERATE CODE' button");
+
+      }
+
+    }
+
+    function resetCode(){
+
+
+      var code = Math.random().toString(36).substr(2,5);
+
+      firebase.database().ref('Classes/'+x+'/CODE').set(code);
+
+    }
+
+
+    function startRegistration(){
+
+      Puck.write("setTimeout('digitalWrite(LED3, 0);', 600000);\ndigitalWrite(LED3,1);\n digitalWrite(LED2, 0);\n");
+
+     
+
+      setTimeout(closeCon, 10000);
+
+      setTimeout(resetCode, 600000);
+
+    }
+
+
+    //function closes the connection
+    function closeCon(){
+
+      Puck.close();
+
+    }
+
+
+
+</script>
+  
+<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBAV157BePawASuItu_Ycvv8p96SQcuFVg",
+    authDomain: "osattendance-352c4.firebaseapp.com",
+    databaseURL: "https://osattendance-352c4.firebaseio.com",
+    projectId: "osattendance-352c4",
+    storageBucket: "osattendance-352c4.appspot.com",
+    messagingSenderId: "91858851284"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="index.js"></script>
+<script src="https://www.puck-js.com/puck.js"></script>
+
+</body>
+</html>
